@@ -1,0 +1,503 @@
+<div class="toc">
+<ul>
+<li><a href="#introduction">INTRODUCTION</a><ul>
+<li><a href="#why-learn-assembly">Why learn assembly?</a></li>
+<li><a href="#is-it-difficult">Is it difficult?</a></li>
+<li><a href="#why-mips-assembly-and-not-another-architecture">Why MIPS Assembly and not another architecture?</a></li>
+<li><a href="#what-do-i-need-to-already-know">What do I need to already know?</a></li>
+<li><a href="#a-few-notes-before-you-start">A few notes before you start</a></li>
+</ul>
+</li>
+<li><a href="#part-1-hello-world">PART 1: Hello, World!</a><ul>
+<li><a href="#taking-the-plunge">Taking the plunge</a></li>
+<li><a href="#explanation-line-by-line">Explanation line-by-line</a></li>
+<li><a href="#source">Source</a></li>
+<li><a href="#wrap-up">Wrap-up</a></li>
+</ul>
+</li>
+<li><a href="#part-2-ab">PART 2: A+B</a><ul>
+<li><a href="#walking-through-it">Walking through it.</a></li>
+<li><a href="#source_1">Source</a></li>
+<li><a href="#wrap-up_1">Wrap-up</a></li>
+</ul>
+</li>
+<li><a href="#part-3-echo">Part 3: Echo</a><ul>
+<li><a href="#walking-through-it_1">Walking through it.</a></li>
+<li><a href="#source_2">Source</a></li>
+<li><a href="#wrap-up_2">Wrap-up</a></li>
+</ul>
+</li>
+<li><a href="#part-4-a-b">Part 4: A == B</a><ul>
+<li><a href="#walking-through-it_2">Walking through it</a></li>
+<li><a href="#source_3">Source</a></li>
+<li><a href="#wrap-up_3">Wrap-up</a></li>
+</ul>
+</li>
+<li><a href="#part-5-loop-n-times">Part 5: Loop N Times</a></li>
+<li><a href="#licensingrightscontact">Licensing/Rights/Contact</a></li>
+</ul>
+</div>
+<h1 id="introduction">INTRODUCTION</h1>
+<p>MIPS is a CPU architecture that has been used in various embedded systems
+including a few things like the Game Boy Advance. It is a simple assembly
+language to learn and is a good stepping stone if one wants to learn assembly
+for other CPU architectures, such as those found in desktops/laptops.</p>
+<p>This is a tutorial that aims to give a thorough walkthrough of usage.</p>
+<h2 id="why-learn-assembly">Why learn assembly?</h2>
+<p>Learning assembly is a must if one hopes to get a solid understanding of how
+higher-level programming languages like C, or even Java or Python eventually
+translate (<em>compile</em>) to actual instructions. In many ways however, knowing
+this will help you better implement algorithms as you get used to thinking at
+a more basic level.</p>
+<p>Also, if you ever intend to use debugging software like gdb, or want to
+reverse-engineer software, with things like Cheat Engine to hack videogames
+(Just do it in single-player please ;) ) assembly is a must-know. Of course,
+don't take me too literally here, as with things like Cheat Engine or gdb,
+you'll be using a different architecture that will be a bit more complicated
+than MIPS, but not too much. This is a good starting ground.</p>
+<p>Of course, if you also wanna write a compiler, or otherwise wanna work
+low-level for other reasons, MIPS is a good place to get your feet wet. But,
+if this applies to you, I doubt you needed an explanation.</p>
+<h2 id="is-it-difficult">Is it difficult?</h2>
+<p>In a fundamental sense, one can learn <em>"theoretically"</em> learn assembly easier
+than other programming languages, such as Python or C++. This is because it
+is the most basic level of direction. But, here in the real world, assembly is
+actually much more difficult to write software in, even trivial applications
+can easily become a headache in assembly to the inexperienced and experienced
+alike.</p>
+<p>There's no OOP to learn, inheritance, lambdas, or anything like that. There is
+a simplicity you may learn to appreciate. Of course, you'll also gain an
+appreciation of many higher-level language features ;) I promise it's fun,
+though.</p>
+<h2 id="why-mips-assembly-and-not-another-architecture">Why MIPS Assembly and not another architecture?</h2>
+<ul>
+<li>
+<p>MIPS is a <em>RISC</em> architecture (Reduced Instruction Set), so learning the
+basics is much simpler, and can focus on the actual programming. It is simpler
+to learn than the arch used in standard desktops/laptops: x86-64.</p>
+</li>
+<li>
+<p>Implementations of MIPS simulators (In particular, MARS) I've found to be
+much simpler and easier to use than those for LLVM or LC3 or ARM. (Don't read
+this as negativity about LLVM and LC3, those are very good projects with a lot
+of smart people.)</p>
+</li>
+<li>
+<p>Actually runs on native hardware. Unlike things like LC3.</p>
+</li>
+</ul>
+<h2 id="what-do-i-need-to-already-know">What do I need to already know?</h2>
+<p>If you know any basic programming, you should be fine, if you know C or C++
+you're golden. </p>
+<h2 id="a-few-notes-before-you-start">A few notes before you start</h2>
+<p>You will hear both <em>registers</em> and <em>memory</em> talked about. A register is a
+memory unit that is directly "on" the CPU as opposed to RAM that we can perform
+actions directly with. For your memory that isn't in one of your few registers,
+you must load it from memory before you can do things like math, I/O, etc. If
+this doesn't quite make sense, it should make sense as you go through this
+tutorial and have a bit more context.</p>
+<h1 id="part-1-hello-world">PART 1: Hello, World!</h1>
+<h2 id="taking-the-plunge">Taking the plunge</h2>
+<p>Let's get our very first Hello, World! program!</p>
+<p>I'll just throw it at you, kind of examine it, then I'll explain it
+line-by-line.</p>
+<pre><code>.data
+
+hello:  .asciiz "Hello, World!\n"
+
+.text
+    la $a0, hello
+    li $v0, 4
+    syscall
+    li
+    syscall
+</code></pre>
+<h2 id="explanation-line-by-line">Explanation line-by-line</h2>
+<p>We'll need to declare a few places in memory for our data. Well, we only need
+one place this time. The lines beginning with . are mainly for the assembler to
+organize the parts of the program for us. A part for "variable declarations", a
+part for our actual code, etc.   <code>.data</code> is for where we will pre-define
+different variables in memory.</p>
+<pre><code>.data
+</code></pre>
+<p>Now that we've marked where we're gonna store our data. Here, we declare a 
+place in memory for a null-terminated string, <code>"Hello, World!\n"</code> the \n is
+the newline character. The <code>hello:</code> is a label for this place in memory.</p>
+<pre><code>hello:  .asciiz "Hello, World!\n"
+</code></pre>
+<p>Let's mark the section where we'll start making legitimate instructions.</p>
+<pre><code>.text
+</code></pre>
+<p>Let's store our string into a register, we need to load the address of our
+string into the<code>$a0</code> register. This is the register that the print service
+takes its argument from. The instruction to do this is <code>la</code>. <code>la</code> means
+"Load address", this loads the address we labelled hello into <code>$a0</code>.</p>
+<pre><code>la $a0, hello
+</code></pre>
+<p>So now that we have our string in the register, ready to be used as an argument
+for the print string service, we need to actually <em>specify</em> this service. A
+table with all the different services and their numbers can be found 
+<a href="http://courses.missouristate.edu/KenVollmar/mars/Help/SyscallHelp.html">here</a>.
+The specific service that is executed is determined by the value in the
+register <code>$v0</code>. The print string service is <code>4</code>. We have a specific
+instruction that will set an exact value into this register, <code>li</code>, which is
+"Load immediate". It is very similar to the instruction above. (In fact, they
+can be interchangable in some cases, but it's not recommended to think of them
+this way, for readability.) This instruction is when we have a specific value
+in our code, usually a literal like below. Effectively, we are doing
+<code>$v0 = 4</code>.</p>
+<pre><code>li $v0, 4
+</code></pre>
+<p>Now that we've actually set the instruction, we need to actually use the
+<code>syscall</code> instruction to use a system service. It'll check the arguments in
+the various registers that the specific service, and execute accordingly. This
+service we're using only takes an argument at <code>$v0</code> which shall contain the
+address of our string.</p>
+<pre><code>syscall
+</code></pre>
+<p>Now, we've printed "Hello, World!", we could theoretically just stop here. But,
+the best practice in software is that we exit with an exit signal 0, exit
+success. This will be a system service like last time, just making a call to
+exit, marking a succesful run. This is like <code>return 0</code> in C. Most languages
+automatically do this for you.</p>
+<pre><code>li $v0, 10
+</code></pre>
+<p>And then now that we've specified our service, we make our system call, and we
+are good.</p>
+<pre><code>syscall
+</code></pre>
+<h2 id="source">Source</h2>
+<p>Here's the source code with comments.</p>
+<pre><code>.data
+
+hello:  .asciiz "Hello, World!\n"
+
+.text
+
+    la $a0, hello  #argument to print str
+    li $v0, 4      #print syscall
+    syscall        #make syscall
+    li $v0, 10     #exit syscall
+    syscall        #tell OS to do the syscall
+</code></pre>
+<h2 id="wrap-up">Wrap-up</h2>
+<p><code>li</code> means "Load immediate" and <code>la</code> means "Load address". <code>li</code> is for
+when we have a specific number, a literal as it is called in other languages,
+to put into the spot in memory. Whereas <code>la</code> will load into it an address.</p>
+<p>A typical program will declare a few spots in memory for variables pre-hand in
+the <code>.data</code> section, and the actual instructions proper in <code>.text</code>.</p>
+<p>Most I/O will be done with syscalls that take their arguments in specific
+registers like <code>$a0</code>.</p>
+<h1 id="part-2-ab">PART 2: A+B</h1>
+<p>This will be a simple enough program. Get two integers, then print their sum.</p>
+<h2 id="walking-through-it">Walking through it.</h2>
+<p>First, we declare a spot in memory to store our integers, and for our 
+strings to display when we want user input. <code>.word</code> refers to the amount of
+data we can address at a time, this is the size of a spot in memory like a
+register. This is a bit more of a complicated thing that I'm letting on, but
+this is "good enough" for our purposes here. It is a 32 bit integer. 4 bytes.
+Neat. And after that data declaration, we'll output to user telling them to
+give us an integer.</p>
+<pre><code>.data
+    a:.word 0
+    b:.word 0
+    givea: .asciiz "A:"
+    giveb: .asciiz "B:"
+
+.text
+    la $a0, givea #Load string
+    li $v0, 4     #Set syscall to print string
+    syscall
+</code></pre>
+<p>Let's read an integer from the user. To do that, we'll be doing another syscall
+specifically, 5, and the result is returned in <code>$v0</code>.</p>
+<pre><code>li $v0, 5    #read integer service. Integer returned in $v0
+syscall
+</code></pre>
+<p>Let's go ahead and store the result into memory. Generally speaking, while
+MARS MIPS implementation this isn't as necessary, registers can be a generally
+risky spot to store data long-term, as function calls don't necessarily make a
+guarantee to preserve them between calls, so for demonstration purposes, we 
+store it at the spot in memory we allocated, at <code>a</code>. We'll be using the
+instruction <code>sw</code> that stores the <code>word</code> in the first argument, which is a
+register, into the second argument, a place in memory.</p>
+<pre><code>sw $v0, a
+</code></pre>
+<p>Let's do the same process, but for <code>b</code>...</p>
+<pre><code>la $a0, giveb
+li $v0, 4
+
+li $v0, 5
+syscall
+sw $v0, b
+</code></pre>
+<p>Our words are stored in memory, we have both of them, so let's put them into
+our registers so we can use them in a math operation. The first loads the value
+at <code>a</code> into <code>$a0</code>, the second loading the value at <code>b</code> into <code>$a1</code>.</p>
+<pre><code>lw $a0, a
+lw $a1, b
+</code></pre>
+<p>So, we have both of our integers (<em>words</em>) in our registers. If you remember,
+I said that we can only do math on the values currently in the registers. 
+The <code>add</code> instruction stores the results of the last 2 arguments,
+into the first. For <code>add x y z</code>, <code>x</code> will store the results of <code>y + z</code>.</p>
+<pre><code>add $a0, $a0, $a1
+</code></pre>
+<p>And now that we have our math, we'll be using the print integer service, which
+is syscall #1. It prints the current integer stored at <code>$a0</code> which we
+cleverly already stored the results in from the last operation. This is is
+where I find assembly programming to most enjoyable, slight little improvements
+in your code like that.</p>
+<pre><code>li $v0, 1 
+syscall
+</code></pre>
+<p>And then, for the farewell, the good old system call saying we've had no
+issues and time to exit.</p>
+<pre><code>li $v0, 10
+syscall
+</code></pre>
+<h2 id="source_1">Source</h2>
+<pre><code>.data
+    a:.word 0
+    b:.word 0
+    givea: .asciiz "A:"
+    giveb: .asciiz "B:"
+
+.text
+    # Read integer a
+    la $a0, givea #Load string
+    li $v0, 4     #Set syscall to print string
+    syscall
+
+    li $v0, 5    #read integer service. Integer returned in $v0
+    syscall
+    sw $v0, a    #store our integer into the memory location a.
+
+    # Read integer b
+    la $a0, giveb
+    li $v0, 4
+
+    li $v0, 5   #read integer service.
+    syscall
+    sw $v0, b   #store our integer into the memory location b.
+
+    lw $a0, a
+    lw $a1, b
+
+    add $a0, $a0, $a1 #arg0 = arg1+arg2
+
+    li $v0, 1 #print integer service, it prints the integer stored at register $a0
+    syscall
+
+    #exit   
+    li $v0, 10
+    syscall
+</code></pre>
+<h2 id="wrap-up_1">Wrap-up</h2>
+<p>Often times we need to get used to moving data around by storing them in
+memory with instructions like <code>sw</code> and math instructions will store
+a register with the sum of two registers.</p>
+<h1 id="part-3-echo">Part 3: Echo</h1>
+<p>Get input from user, then repeat it.
+This program will demonstrate allocation of memory and storing strings.</p>
+<h2 id="walking-through-it_1">Walking through it.</h2>
+<p>This time, we won't bother declaring in variables using <code>.data</code>, and just go
+straight to the instructions in <code>.text</code></p>
+<pre><code>.text
+</code></pre>
+<p>Before we can take a string input, we need to make sure there is a place for it
+in memory. That is to say, we will be <em>allocating</em>. We'll be doing something
+akin to <code>malloc</code> in C or C++. We'll be using the sbrk system service. It'll
+declare a number of bytes and returns its address so that we can store and use
+variables in that spot. It will store <code>$a0</code> number of bytes, and returns its
+address in <code>$v0</code>.</p>
+<pre><code>li $a0, 400
+li $v0, 9
+syscall
+</code></pre>
+<p>Next, we'll be using the read string service. It'll store at the address stored
+in <code>$a0</code> and it will only read up to a specific number of bytes, <code>$a1</code>
+number of bytes. We need to make sure it doesn't read more bytes than we know
+are allocated, otherwise we'll overflow and write to memory we shouldn't be.
+Now, so the first step is to move the address of the data we allocated to
+<code>$a0</code> so our read string instruction will read to it. To move from register
+to register with <code>la</code>, we need to use a () syntax. This is because
+frequently, there'll be an offset from that. For now though, we don't have to
+worry about that.</p>
+<pre><code>la $a0, ($v0)
+</code></pre>
+<p>Okay, and now let's set the limit on the number of bytes we will read...</p>
+<pre><code>li $a1, 400
+</code></pre>
+<p>Now, if you remember, our memory allocation service only takes two arguments,
+in <code>$a0</code> and in <code>$a1</code>, abd we've already loaded our address in <code>$a0</code> and
+the limit on bytes to read in <code>$a1</code>, so now let's make the call.</p>
+<pre><code>syscall
+</code></pre>
+<p>Now generally, we would have copied the address into memory using <code>sw</code>, and
+in other architectures/other implementations, that address would have been lost
+if we didn't make a copy elsewhere before we made that last call. MARS is more
+forgiving, however. So, the location of our string is still stored at <code>$a0</code>.
+And if you remember, our print string argument reads the string at the address
+stored at... <code>$a0</code>... So our print string argument is already set, we just
+need to specify the service.</p>
+<pre><code>li $v0, 4
+</code></pre>
+<p>And then, print that string.</p>
+<pre><code>syscall
+</code></pre>
+<p>And then like always, we need to exit our program, so let's do that.</p>
+<pre><code>li $v0, 10
+syscall
+</code></pre>
+<h2 id="source_2">Source</h2>
+<pre><code>.text
+    li $a0, 500   #allocate 400 bytes
+    li $v0, 9     #set syscall to allocate memory
+    syscall
+
+    la $a0,($v0) #set the target address for the read string 
+    li $a1, 500   #set max number of chars to read 
+    li $v0, 8     #set syscall to read string
+    syscall
+
+    li $v0,4     #set syscall to print string
+    syscall
+
+    li $v0,10    #exit cleanly with EXIT_SUCCESS
+    syscall
+</code></pre>
+<h2 id="wrap-up_2">Wrap-up</h2>
+<p>To allocate a large amount of data, we have to allocate it by using a system
+service, and then it will give us the location of where it allocated the
+memory where we will then print it.</p>
+<h1 id="part-4-a-b">Part 4: A == B</h1>
+<p>Get two integers from the user, state if they're equal or not.</p>
+<h2 id="walking-through-it_2">Walking through it</h2>
+<p>So, if you've done the Part 2, A+B, then the beginning of this part should
+look pretty familiar. First, let's declare spots in memory for our data.</p>
+<pre><code>.data
+    a:      .word 0
+    b:      .word 0
+    givea:  .asciiz "Integer A:"
+    giveb:  .asciiz "Integer B:"
+    neqstr: .asciiz "Integers not equal.\n"
+    eqstr:  .asciiz "Integers are equal.\n"
+</code></pre>
+<p>Let's read our first integer A, this is pretty much copy-pasted from Part 2.</p>
+<pre><code>.text
+    # Read integer a
+    la $a0, givea
+    li $v0, 4
+    syscall
+    li $v0, 5
+    syscall
+    sw $v0, a
+</code></pre>
+<p>Let's get the second integer B, this one is going to be slightly different from
+last time. First, let's get our integer B.</p>
+<pre><code>la $a0, giveb
+li $v0, 4
+syscall
+
+li $v0, 5   #read integer service.
+syscall
+</code></pre>
+<p>Our integer B is in <code>$v0</code>, last time we stored it in memory. This time we
+wont'. But we still need to do our comparison operation, and have to do it on
+our registers, so let's load A.</p>
+<pre><code>lw $a0, a
+</code></pre>
+<p>And now, we need to compare the values. At the low-level, we need to use
+<em>branching</em>. To do branching, we will make a comparison, and then depending
+on that result, either: Jump to a specified label or: nothing. In this case,
+we will use <code>beq</code>, given two arguments, it will jump to a label if its two
+register arguments are equal. Otherwise, nothing happens. Let's call this label
+<code>equals</code>.</p>
+<pre><code>beq $a0, $v0, equals
+</code></pre>
+<p>We haven't actually made our <code>equals</code> label yet, between the <code>equals</code> label
+and that last line, we need to put our code we want to execute, that is, the if
+they're not equal. Since both equals and not equals cases will print, we don't
+need to put it in our not equals section, so all we need to do between our
+<code>equals</code> section and right here, is to load the string and jump to our
+procedure for print and exit. We have the <code>j</code> instruction that will always
+go to a specific label.</p>
+<pre><code>la $a0, neqstr
+j printandexit
+</code></pre>
+<p>Okay, now, we have our not equals, so let's make our equals section. We'll
+first need a label. You'll notice this is the same syntax as when we mark spots
+in memory for our data, this is no coincidence, since instructions are in
+memory just like our data.</p>
+<pre><code>equals:
+</code></pre>
+<p>And then, let's do our similar procedure for equals.</p>
+<pre><code>la $a0, eqstr
+j printandexit
+</code></pre>
+<p>Let's make our final procedure, printandexit. We will print whatever string is
+in <code>$a0</code>, which we would've already dealt with loading.</p>
+<pre><code>printandexit:
+    li $v0, 4
+    syscall
+    li $v0, 10
+    syscall
+</code></pre>
+<h2 id="source_3">Source</h2>
+<pre><code>.data
+    a:      .word 0
+    b:      .word 0
+    givea:  .asciiz "Integer A:"
+    giveb:  .asciiz "Integer B:"
+    neqstr: .asciiz "Integers not equal.\n"
+    eqstr:  .asciiz "Integers are equal.\n"
+
+.text
+    # Read integer a
+    la $a0, givea #Load string
+    li $v0, 4     #Set syscall to print string
+    syscall
+
+    li $v0, 5    #read integer service. Integer returned in $v0
+    syscall
+    sw $v0, a    #store our integer into the memory location a.
+
+    # Read integer b
+    la $a0, giveb
+    li $v0, 4
+    syscall
+
+    li $v0, 5   #read integer service.
+    syscall
+
+    lw $a0, a
+    beq $a0, $v0, equals # if not equals, then it just goes to next line.
+
+    la $a0, neqstr #If we get here, then A != B
+    j printandexit #without this jump, we would also execute the equals procedure
+equals: #Sets the string-to-print as the output for A==B
+    la $a0, eqstr
+    j printandexit #We could delete this and "fall through"
+
+printandexit: # Prints whatever is in $a0 then exits.
+    li $v0, 4
+    syscall
+    li $v0, 10
+    syscall
+</code></pre>
+<h2 id="wrap-up_3">Wrap-up</h2>
+<p>Branching and jump instructions are fundamental to only conditionally executing
+code. Now, there is a special type of branching instruction that will let us
+have true procedures, those that can have recursion, but here it's not
+necessary. Forgetting jump or branch instructions before your sections can lead
+to code blocks you don't want executing. Be careful.</p>
+<h1 id="part-5-loop-n-times">Part 5: Loop N Times</h1>
+<p>(not yet written sorry)</p>
+<h1 id="licensingrightscontact">Licensing/Rights/Contact</h1>
+<p>For questions, comments, corrections, inquiries, etc. I may be reached at
+contact@keithstellyes.com</p>
+<p>The content of this tutorial is under a Creative Commons
+Attribution 4.0 International License.</p>
+<p><a href="https://creativecommons.org/licenses/by/4.0/legalcode">Click here for the license</a></p>
+<p><a href="https://wiki.creativecommons.org/wiki/best_practices_for_attribution">For best practices regarding attribution, look here</a></p>

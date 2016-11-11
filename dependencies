@@ -1,0 +1,11 @@
+python with markdown module
+
+following modules:
+	Include a file with {!filename!}
+	https://github.com/cmacmackin/markdown-include
+	Define a section with a custom class name with !!classname|text!!
+	https://github.com/exaroth/mdx_custom_span_class
+
+Maybe try:
+	https://pythonhosted.org/Markdown/extensions/code_hilite.html
+Will have to write my own lexer 
