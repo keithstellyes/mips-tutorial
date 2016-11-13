@@ -6,16 +6,18 @@
 <li><a href="#why-mips-assembly-and-not-another-architecture">Why MIPS Assembly and not another architecture?</a></li>
 <li><a href="#what-do-i-need-to-already-know">What do I need to already know?</a></li>
 <li><a href="#a-few-notes-before-you-start">A few notes before you start</a></li>
+<li><a href="#set-up-and-usage">Set-up and usage</a></li>
+<li><a href="#resources">Resources</a></li>
 </ul>
 </li>
-<li><a href="#part-1-hello-world">PART 1: Hello, World!</a><ul>
+<li><a href="#part-1-hello-world">Part 1: Hello, World!</a><ul>
 <li><a href="#taking-the-plunge">Taking the plunge</a></li>
 <li><a href="#explanation-line-by-line">Explanation line-by-line</a></li>
 <li><a href="#source">Source</a></li>
 <li><a href="#wrap-up">Wrap-up</a></li>
 </ul>
 </li>
-<li><a href="#part-2-ab">PART 2: A+B</a><ul>
+<li><a href="#part-2-ab">Part 2: A+B</a><ul>
 <li><a href="#walking-through-it">Walking through it.</a></li>
 <li><a href="#source_1">Source</a></li>
 <li><a href="#wrap-up_1">Wrap-up</a></li>
@@ -39,6 +41,12 @@
 <li><a href="#wrap-up_4">Wrap-up</a></li>
 </ul>
 </li>
+<li><a href="#part-6-99-bootles-of-beer">Part 6: 99 Bootles of Beer</a><ul>
+<li><a href="#walking-through-it_4">Walking through it</a></li>
+<li><a href="#source_5">Source</a></li>
+<li><a href="#wrap-up_5">Wrap-up</a></li>
+</ul>
+</li>
 <li><a href="#licensingrightscontact">Licensing/Rights/Contact</a></li>
 </ul>
 </div>
@@ -52,6 +60,10 @@
 </thead>
 <tbody>
 <tr>
+<td>2016-11-13</td>
+<td>Added resources section ; MIPS setup instructions added to Introduction ; Link to MIPS instruction set added in Part 3 wrap-up ; minor edits&amp;revision</td>
+</tr>
+<tr>
 <td>2016-11-12</td>
 <td>Part 5 added ;  Minor re-wording in Part 1 &amp; 4</td>
 </tr>
@@ -59,9 +71,9 @@
 </table>
 <h1 id="introduction">INTRODUCTION</h1>
 <p>MIPS is a CPU architecture that has been used in various embedded systems
-including a few things like the Game Boy Advance. It is a simple assembly
-language to learn and is a good stepping stone if one wants to learn assembly
-for other CPU architectures, such as those found in desktops/laptops.</p>
+including a few things like the Game Boy Advance. It is a simple enough 
+architecture learn and is a good stepping stone if one wants to learn assembly
+for other CPU architectures, such as those found in personal computers.</p>
 <p>This is a tutorial that aims to give a thorough walkthrough of usage.</p>
 <h2 id="why-learn-assembly">Why learn assembly?</h2>
 <p>Learning assembly is a must if one hopes to get a solid understanding of how
@@ -75,7 +87,7 @@ reverse-engineer software, with things like Cheat Engine to hack videogames
 don't take me too literally here, as with things like Cheat Engine or gdb,
 you'll be using a different architecture that will be a bit more complicated
 than MIPS, but not too much. This is a good starting ground.</p>
-<p>Of course, if you also wanna write a compiler, or otherwise wanna work
+<p>If you also wanna write a compiler, or otherwise wanna work
 low-level for other reasons, MIPS is a good place to get your feet wet. But,
 if this applies to you, I doubt you needed an explanation.</p>
 <h2 id="is-it-difficult">Is it difficult?</h2>
@@ -94,7 +106,7 @@ though.</p>
 <li>
 <p>MIPS is a <em>RISC</em> architecture (Reduced Instruction Set), so learning the
 basics is much simpler, and can focus on the actual programming. It is simpler
-to learn than the arch used in standard desktops/laptops: x86-64.</p>
+to learn than the arch used in standard personal computers: x86-64.</p>
 </li>
 <li>
 <p>Implementations of MIPS simulators (In particular, MARS) I've found to be
@@ -116,7 +128,43 @@ actions directly with. For your memory that isn't in one of your few registers,
 you must load it from memory before you can do things like math, I/O, etc. If
 this doesn't quite make sense, it should make sense as you go through this
 tutorial and have a bit more context.</p>
-<h1 id="part-1-hello-world">PART 1: Hello, World!</h1>
+<h2 id="set-up-and-usage">Set-up and usage</h2>
+<p>I highly recommend the MARS simulator 
+(<a href="http://courses.missouristate.edu/KenVollmar/mars/download.htm">available here</a>)
+for running these MIPS code samples. It runs on Windows, Mac, Linux, and since
+it's a Java .jar, likely also will run on *BSD too, but I can't attest to that.
+Running a program involves a two step process:</p>
+<ul>
+<li>Assemble (F3)</li>
+</ul>
+<p>This will translate what you wrote to the actual machine language, and prepare
+for actually running your code.</p>
+<ul>
+<li>Run (F5)</li>
+</ul>
+<p>This will run your assembled code, note you <em>must</em> assemble it first.</p>
+<h2 id="resources">Resources</h2>
+<p>This tutorial is not meant to supersede/replace some of the already great
+resources out there, but to instead complement what already exists. For this
+reason, I opted to not include copies of the instruction sets or the definitive
+<code>syscall</code> list, look to some of these resources for information.</p>
+<ul>
+<li><a href="http://www.mrc.uidaho.edu/mrc/people/jff/digital/MIPSir.html">The instruction set (James F. Frenzel @ University of Idaho)</a></li>
+</ul>
+<p>This is a very good general reference. MIPS is a simple enough architecture
+to read all of. Useful to lookup the different branching
+instructions available, math, etc.</p>
+<ul>
+<li><a href="http://courses.missouristate.edu/KenVollmar/mars/Help/SyscallHelp.html">syscall list (Ken Vollmar @ Missouri State)</a></li>
+</ul>
+<p>There are many different system services, MARS supports most, if not all of
+these. </p>
+<ul>
+<li><a href="http://courses.missouristate.edu/KenVollmar/mars/download.htm">MARS Download (Ken Vollmar @ Missouri State)</a></li>
+</ul>
+<p>This is the same link in the previous section, but placed here also for
+consistency.</p>
+<h1 id="part-1-hello-world">Part 1: Hello, World!</h1>
 <h2 id="taking-the-plunge">Taking the plunge</h2>
 <p>Let's get our very first Hello, World! program!</p>
 <p>Just this once, I'll throw the raw source code for you to appreciate.</p>
@@ -207,7 +255,7 @@ to put into the spot in memory. Whereas <code>la</code> will load into it an add
 the <code>.data</code> section, and the actual instructions proper in <code>.text</code>.</p>
 <p>Most I/O will be done with syscalls that take their arguments in specific
 registers like <code>$a0</code>.</p>
-<h1 id="part-2-ab">PART 2: A+B</h1>
+<h1 id="part-2-ab">Part 2: A+B</h1>
 <p>This will be a simple enough program. Get two integers, then print their sum.</p>
 <h2 id="walking-through-it">Walking through it.</h2>
 <p>First, we declare a spot in memory to store our integers, and for our 
@@ -511,6 +559,9 @@ code. Now, there is a special type of branching instruction that will let us
 have true procedures, those that can have recursion, but here it's not
 necessary. Forgetting jump or branch instructions before your sections can lead
 to code blocks you don't want executing. Be careful.</p>
+<p>A list of MIPS instructions, including all the different branching
+instructions can be found 
+<a href="http://www.mrc.uidaho.edu/mrc/people/jff/digital/MIPSir.html">here.</a></p>
 <h1 id="part-5-loop-n-times">Part 5: Loop N Times</h1>
 <p>This time, we will write a simple program, that when given an integer, it will
 print that many times, each time doing a "countdown". We can easily combine
@@ -635,6 +686,168 @@ alldone:
 <p>Using a branch and an unconditional jump at both the beginning and end of a
 segment of code, we can implement looping structures as we see in normal
 programming languages.</p>
+<h1 id="part-6-99-bootles-of-beer">Part 6: 99 Bootles of Beer</h1>
+<p>We will write a program that counts down, generating the lyrics for the song,
+<em>99 Bottles of Beer on the Wall</em> (lyrics 
+<a href="http://www.99-bottles-of-beer.net/lyrics.html">here</a>)
+No new real new concepts, just a bit of practice.</p>
+<h2 id="walking-through-it_4">Walking through it</h2>
+<p>First let's declare our strings we call for 3 &lt;= n &lt;= 99.</p>
+<pre><code>.data 
+    lyrica: .asciiz " bottles of beer on the wall, "
+    lyricb: .asciiz " bottles of beer.\nTake one down and pass it around, "
+    lyricc: .asciiz " bottles of beer on the wall.\n\n"
+</code></pre>
+<p>Now, we also have to remember, when 3 &gt; n, that the printing behavior is
+not the same. For 3 &gt; n, I'm just going to do a string constant, if you want
+it to actually be printing the integer for even the last part, consider it
+your challenge. Here, I split them into multiple variables for readability,
+but if you want just one super long line, go ahead.</p>
+<pre><code>concl1: .asciiz "2 bottles of beer on the wall, 2 bottles of beer.\n"
+concl2: .asciiz "Take one down and pass it around, 1 bottle of beer on the wall.\n\n"
+concl3: .asciiz "1 bottle of beer on the wall, 1 bottle of beer.\n"
+concl4: .asciiz "Take one down and pass it around, no more bottles of beer on the wall.\n\n"
+concl5: .asciiz "No more bottles of beer on the wall, no more bottles of beer.\n"
+concl6: .asciiz "Go to the store and buy some more, 99 bottles of beer on the wall."
+</code></pre>
+<p>Now, let's initalize our counter. I'm just going to store it in the register
+<code>$a1</code>, as I've stated already, this isn't best practice.</p>
+<pre><code>.text
+    li $a1, 99
+</code></pre>
+<p>Now, we're just going to do a loop for this. Where do you think the loop
+should terminate? If you remember, the standard behavior ends when n is less
+than 3. So, let's terminate when n == 2. Of course, don't forget the label to
+jump back to. Let's just call the final block of code printing the final string
+and exiting, <code>concl</code>.</p>
+<pre><code>loop:
+    beq $a1, 2, concl
+</code></pre>
+<p>If you remember how our print integer works, it prints only the number, no
+whitespace or anything. So first, we must move our counter to <code>$a0</code> and 
+use the print integer service.</p>
+<pre><code>move $a0, $a1
+li $v0, 1
+syscall
+</code></pre>
+<p>And then, we will print the first part of the lyric.</p>
+<pre><code>la $a0, lyrica
+li $v0, 4
+syscall
+</code></pre>
+<p>And then, if you reference the lyrics, you'll realize after here, we print our
+counter again, so let's do just that.</p>
+<pre><code>move $a0, $a1
+li $v0, 1
+syscall
+</code></pre>
+<p>And then we print the second part of the lyrics, using <code>lyricb</code>...</p>
+<pre><code>la $a0, lyricb
+li $v0, 4
+syscall
+</code></pre>
+<p>Okay, now we get back to the fun part. So now, if you look at the lyrics,
+you should notice here, the counter decrements. Well, we already know how to
+do that, right? So let's do just that.</p>
+<pre><code>subi $a1, $a1, 1
+</code></pre>
+<p>Cool, and then we print our integer, and the last part of the lyric.</p>
+<pre><code>move $a0, $a1
+li $v0, 1
+syscall
+la $a0, lyricc
+li $v0, 4
+syscall
+</code></pre>
+<p>And now that the loop is done, we need to add our final jump.</p>
+<pre><code>j loop
+</code></pre>
+<p>Now, we will do our conclusion. We're just printing a series of strings.
+Nothing much. Of course, we still need our label, <code>concl</code>. After, we will
+exit.</p>
+<pre><code>concl:
+    la $a0, concl1
+    li $v0, 4
+    syscall
+    la $a0, concl2
+    syscall
+    la $a0, concl3
+    syscall
+    la $a0, concl4
+    syscall
+    la $a0, concl5
+    syscall
+    la $a0, concl6
+    syscall
+
+    li $v0, 10
+    syscall
+</code></pre>
+<h2 id="source_5">Source</h2>
+<pre><code>.data 
+    lyrica: .asciiz " bottles of beer on the wall, "
+    lyricb: .asciiz " bottles of beer.\nTake one down and pass it around, "
+    lyricc: .asciiz " bottles of beer on the wall.\n\n"
+
+    concl1: .asciiz "2 bottles of beer on the wall, 2 bottles of beer.\n"
+    concl2: .asciiz "Take one down and pass it around, 1 bottle of beer on the wall.\n\n"
+    concl3: .asciiz "1 bottle of beer on the wall, 1 bottle of beer.\n"
+    concl4: .asciiz "Take one down and pass it around, no more bottles of beer on the wall.\n\n"
+    concl5: .asciiz "No more bottles of beer on the wall, no more bottles of beer.\n"
+    concl6: .asciiz "Go to the store and buy some more, 99 bottles of beer on the wall."
+
+.text
+    li $a1, 99
+    # loop for 99 -&gt; 3
+loop:
+    beq $a1, 2, concl #condition
+    move $a0, $a1     #copy counter for use in printing
+    li $v0, 1
+    syscall
+
+    la $a0, lyrica    #next part of the lyrics to print
+    li $v0, 4
+    syscall
+    move $a0, $a1     #print counter again...
+    li $v0, 1
+    syscall
+
+    la $a0, lyricb    #next part of the lyrics to print
+    li $v0, 4
+    syscall
+
+    subi $a1, $a1, 1  #decrement counter and print
+    move $a0, $a1
+    li $v0, 1
+    syscall
+    la $a0, lyricc    #print final part
+    li $v0, 4
+    syscall
+    j loop
+
+concl:
+    #Printing final string.
+    la $a0, concl1
+    li $v0, 4
+    syscall
+    la $a0, concl2
+    syscall
+    la $a0, concl3
+    syscall
+    la $a0, concl4
+    syscall
+    la $a0, concl5
+    syscall
+    la $a0, concl6
+    syscall
+
+    li $v0, 10
+    syscall
+</code></pre>
+<h2 id="wrap-up_5">Wrap-up</h2>
+<p>Not much to say in the wrap-up this time, honestly. Just, remember to
+experiment a bit with different instructions to get comfortable with
+these programs as they increase in complexity.</p>
 <h1 id="licensingrightscontact">Licensing/Rights/Contact</h1>
 <p>For questions, comments, corrections, inquiries, etc. I may be reached at
 contact@keithstellyes.com</p>

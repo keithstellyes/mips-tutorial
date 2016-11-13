@@ -14,4 +14,6 @@
 
 {!05-loop_n_times.md!}
 
+{!06-99_bottles_of_beer.md!}
+
 {!footer.markdowninclude!}

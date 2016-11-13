@@ -133,3 +133,7 @@ code. Now, there is a special type of branching instruction that will let us
 have true procedures, those that can have recursion, but here it's not
 necessary. Forgetting jump or branch instructions before your sections can lead
 to code blocks you don't want executing. Be careful.
+
+A list of MIPS instructions, including all the different branching
+instructions can be found 
+[here.](http://www.mrc.uidaho.edu/mrc/people/jff/digital/MIPSir.html)

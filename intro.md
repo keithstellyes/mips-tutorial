@@ -1,9 +1,9 @@
 #INTRODUCTION
 
 MIPS is a CPU architecture that has been used in various embedded systems
-including a few things like the Game Boy Advance. It is a simple assembly
-language to learn and is a good stepping stone if one wants to learn assembly
-for other CPU architectures, such as those found in desktops/laptops.
+including a few things like the Game Boy Advance. It is a simple enough 
+architecture learn and is a good stepping stone if one wants to learn assembly
+for other CPU architectures, such as those found in personal computers.
 
 This is a tutorial that aims to give a thorough walkthrough of usage.
 
@@ -22,7 +22,7 @@ don't take me too literally here, as with things like Cheat Engine or gdb,
 you'll be using a different architecture that will be a bit more complicated
 than MIPS, but not too much. This is a good starting ground.
 
-Of course, if you also wanna write a compiler, or otherwise wanna work
+If you also wanna write a compiler, or otherwise wanna work
 low-level for other reasons, MIPS is a good place to get your feet wet. But,
 if this applies to you, I doubt you needed an explanation.
 
@@ -44,7 +44,7 @@ though.
 
 * MIPS is a *RISC* architecture (Reduced Instruction Set), so learning the
 basics is much simpler, and can focus on the actual programming. It is simpler
-to learn than the arch used in standard desktops/laptops: x86-64.
+to learn than the arch used in standard personal computers: x86-64.
 
 * Implementations of MIPS simulators (In particular, MARS) I've found to be
 much simpler and easier to use than those for LLVM or LC3 or ARM. (Don't read
@@ -66,3 +66,43 @@ actions directly with. For your memory that isn't in one of your few registers,
 you must load it from memory before you can do things like math, I/O, etc. If
 this doesn't quite make sense, it should make sense as you go through this
 tutorial and have a bit more context.
+
+##Set-up and usage
+
+I highly recommend the MARS simulator 
+([available here](http://courses.missouristate.edu/KenVollmar/mars/download.htm))
+for running these MIPS code samples. It runs on Windows, Mac, Linux, and since
+it's a Java .jar, likely also will run on *BSD too, but I can't attest to that.
+Running a program involves a two step process:
+
+* Assemble (F3)
+
+This will translate what you wrote to the actual machine language, and prepare
+for actually running your code.
+
+* Run (F5)
+
+This will run your assembled code, note you *must* assemble it first.
+
+##Resources
+
+This tutorial is not meant to supersede/replace some of the already great
+resources out there, but to instead complement what already exists. For this
+reason, I opted to not include copies of the instruction sets or the definitive
+``syscall`` list, look to some of these resources for information.
+
+* [The instruction set (James F. Frenzel @ University of Idaho)](http://www.mrc.uidaho.edu/mrc/people/jff/digital/MIPSir.html)
+
+This is a very good general reference. MIPS is a simple enough architecture
+to read all of. Useful to lookup the different branching
+instructions available, math, etc.
+
+* [syscall list (Ken Vollmar @ Missouri State)](http://courses.missouristate.edu/KenVollmar/mars/Help/SyscallHelp.html)
+
+There are many different system services, MARS supports most, if not all of
+these. 
+
+* [MARS Download (Ken Vollmar @ Missouri State)](http://courses.missouristate.edu/KenVollmar/mars/download.htm)
+
+This is the same link in the previous section, but placed here also for
+consistency.

@@ -1,4 +1,4 @@
-#PART 1: Hello, World!
+#Part 1: Hello, World!
 
 ##Taking the plunge
 

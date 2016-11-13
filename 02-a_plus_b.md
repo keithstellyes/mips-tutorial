@@ -1,4 +1,4 @@
-#PART 2: A+B
+#Part 2: A+B
 
 This will be a simple enough program. Get two integers, then print their sum.
 
