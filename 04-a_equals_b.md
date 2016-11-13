@@ -27,7 +27,7 @@ Let's read our first integer A, this is pretty much copy-pasted from Part 2.
 	    sw $v0, a
 
 Let's get the second integer B, this one is going to be slightly different from
-last time. First, let's get our integer B.
+last time.
 
 	la $a0, giveb
 	li $v0, 4

@@ -1,5 +1,7 @@
 [TOC]
 
+{!changelog.md!}
+
 {!intro.md!}
 
 {!01-helloworld.md!}

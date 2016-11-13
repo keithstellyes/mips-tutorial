@@ -4,8 +4,7 @@
 
 Let's get our very first Hello, World! program!
 
-I'll just throw it at you, kind of examine it, then I'll explain it
-line-by-line.
+Just this once, I'll throw the raw source code for you to appreciate.
 
     .data
     

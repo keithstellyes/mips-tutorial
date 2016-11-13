@@ -37,6 +37,21 @@
 <li><a href="#licensingrightscontact">Licensing/Rights/Contact</a></li>
 </ul>
 </div>
+<p><strong>Changelog</strong></p>
+<table>
+<thead>
+<tr>
+<th>Date (PST)</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2016-11-12</td>
+<td>Minor re-wording in Part 1 &amp; 4</td>
+</tr>
+</tbody>
+</table>
 <h1 id="introduction">INTRODUCTION</h1>
 <p>MIPS is a CPU architecture that has been used in various embedded systems
 including a few things like the Game Boy Advance. It is a simple assembly
@@ -99,8 +114,7 @@ tutorial and have a bit more context.</p>
 <h1 id="part-1-hello-world">PART 1: Hello, World!</h1>
 <h2 id="taking-the-plunge">Taking the plunge</h2>
 <p>Let's get our very first Hello, World! program!</p>
-<p>I'll just throw it at you, kind of examine it, then I'll explain it
-line-by-line.</p>
+<p>Just this once, I'll throw the raw source code for you to appreciate.</p>
 <pre><code>.data
 
 hello:  .asciiz "Hello, World!\n"
@@ -395,7 +409,7 @@ look pretty familiar. First, let's declare spots in memory for our data.</p>
     sw $v0, a
 </code></pre>
 <p>Let's get the second integer B, this one is going to be slightly different from
-last time. First, let's get our integer B.</p>
+last time.</p>
 <pre><code>la $a0, giveb
 li $v0, 4
 syscall
