@@ -12,8 +12,6 @@
 
 {!04-a_equals_b.md!}
 
-#Part 5: Loop N Times
-
-(not yet written sorry)
+{!05-loop_n_times.md!}
 
 {!footer.markdowninclude!}
