@@ -28,7 +28,7 @@ if this applies to you, I doubt you needed an explanation.
 
 ##Is it difficult?
 
-In a fundamental sense, one can learn *"theoretically"* learn assembly easier
+In a fundamental sense, one can *"theoretically"* learn assembly easier
 than other programming languages, such as Python or C++. This is because it
 is the most basic level of direction. But, here in the real world, assembly is
 actually much more difficult to write software in, even trivial applications
