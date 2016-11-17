@@ -43,6 +43,7 @@ Let's do the same process, but for ``b``...
 
 	la $a0, giveb
 	li $v0, 4
+	syscall
 
 	li $v0, 5
 	syscall
@@ -98,6 +99,7 @@ issues and time to exit.
 	    # Read integer b
 	    la $a0, giveb
 	    li $v0, 4
+	    syscall
 	
 	    li $v0, 5   #read integer service.
 	    syscall
