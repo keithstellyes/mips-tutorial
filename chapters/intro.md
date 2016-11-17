@@ -1,3 +1,4 @@
+<!-- Introduction -->
 #INTRODUCTION
 
 MIPS is a CPU architecture that has been used in various embedded systems
@@ -5,7 +6,11 @@ including a few things like the Game Boy Advance. It is a simple enough
 architecture learn and is a good stepping stone if one wants to learn assembly
 for other CPU architectures, such as those found in personal computers.
 
-This is a tutorial that aims to give a thorough walkthrough of usage.
+This is a tutorial that aims to give a thorough walkthrough of usage and the
+general thought process behind writing assembly.
+
+The Markdown files used to write this tutorial, and the makefile are available
+on GitHub, see the section Contributing.
 
 ##Why learn assembly?
 
@@ -106,3 +111,9 @@ these.
 
 This is the same link in the previous section, but placed here also for
 consistency.
+
+##Contributing
+
+This tutorial was written in GitHub, and uses a Python markdown module, and
+uses a makefile to build it, you can see it and contribute 
+[here](https://github.com/keithstellyes/mips-tutorial).

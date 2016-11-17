@@ -1,19 +1,21 @@
 [TOC]
 
-{!changelog.md!}
+{!chapters/changelog.md!}
 
-{!intro.md!}
+{!chapters/intro.md!}
 
-{!01-helloworld.md!}
+{!chapters/01-helloworld.md!}
 
-{!02-a_plus_b.md!}
+{!chapters/02-a_plus_b.md!}
 
-{!03-echo.md!}
+{!chapters/03-echo.md!}
 
-{!04-a_equals_b.md!}
+{!chapters/04-a_equals_b.md!}
 
-{!05-loop_n_times.md!}
+{!chapters/05-loop_n_times.md!}
 
-{!06-99_bottles_of_beer.md!}
+{!chapters/06-99_bottles_of_beer.md!}
 
-{!footer.markdowninclude!}
+{!chapters/07-guess_the_num.md!}
+
+{!chapters/footer.markdowninclude!}
