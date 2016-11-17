@@ -1,5 +1,5 @@
 The original writing and content is under a Creative Commons 
-Attribution-NonCommercial-ShareAlike 4.0 International License.
+Attribution 4.0 International License.
 (License contained here: LICENSE-CONTENT.txt)
 
 The underlying code used to format the content is under an MIT License.
