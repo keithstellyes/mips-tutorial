@@ -4,7 +4,8 @@
 
 Let's get our very first Hello, World! program!
 
-Just this once, I'll throw the raw source code for you to appreciate.
+This is the only time we'll do it like this, but we'll just look at the
+completed source code *then* examine it.
 
     .data
     
@@ -33,7 +34,7 @@ the newline character. The ``hello:`` is a label for this place in memory.
 
     hello:  .asciiz "Hello, World!\n"
 
-Let's mark the section where we'll start making legitimate instructions.
+Let's mark the section where we'll have actual legitimate instructions.
 
     .text
 
@@ -62,7 +63,7 @@ in our code, usually a literal like below. Effectively, we are doing
 Now that we've actually set the instruction, we need to actually use the
 ``syscall`` instruction to use a system service. It'll check the arguments in
 the various registers that the specific service, and execute accordingly. This
-service we're using only takes an argument at ``$v0`` which shall contain the
+service we're using only takes an argument at ``$a0`` which shall contain the
 address of our string.
 
     syscall
@@ -99,7 +100,7 @@ Here's the source code with comments.
 
 ``li`` means "Load immediate" and ``la`` means "Load address". ``li`` is for
 when we have a specific number, a literal as it is called in other languages,
-to put into the spot in memory. Whereas ``la`` will load into it an address.
+to put into the spot in memory. Whereas ``la`` will load an address into it.
 
 A typical program will declare a few spots in memory for variables pre-hand in
 the ``.data`` section, and the actual instructions proper in ``.text``.
