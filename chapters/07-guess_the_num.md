@@ -24,7 +24,7 @@ We will be using a ``syscall`` that will generate a pseudorandom number. If we
 go back to the``syscall`` chart
 [here](http://courses.missouristate.edu/KenVollmar/mars/Help/SyscallHelp.html)
 we see that we have ``syscall 42``. This generates a random number
-0 <= n < \\upperbound
+0 <= n < [upperbound]
 It requires us to set a *seed*. Typically, a pseudorandom number generator will
 use the system time for this. For this, we have ``syscall 30``. So first, let's
 get the time to use for our seed.
