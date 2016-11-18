@@ -8,8 +8,9 @@ will also state if ``n`` is greater than or less than the integer input.
 
 ## Walking through it
 
-This time, we will not store our number in a register, but instead in a normal
-place in memory, as is ideal. All random generators have an "id", don't forget.
+This time, we will not store our number in a register, but instead in a
+place in memory, as is ideal. All random generators have an *id*, don't 
+forget.
 First, let's declare our initial data...
 
     .data
@@ -33,7 +34,8 @@ get the time to use for our seed.
 	    li $v0, 30
 	    syscall
 
-We have the time, now if you look at the table, you'll see we have both
+We have the time stored. Look at the table, you'll see we 
+have both
 low-order time in ``$a0`` and high-order in ``$a1``. For our purposes, we will
 use high-order time for our purposes. Before we can use our random number
 generator, we must first set the seed. The number we are going to use as our
@@ -57,7 +59,8 @@ bound to 10, and then increment to get a number in the range of 1-10.
 	syscall
 
 We now have our random number generated, but it is 1 less than it should be.
-Also, it still needs to be stored in ``n``. So let's add 1 to it, then store
+Also, it still needs to be stored in the memory location ``n``. So let's 
+add 1 to it, then store
 it.
 
 	add $a0, $a0, 1
@@ -74,7 +77,7 @@ the label, too.
 	    li $v0, 5
 	    syscall
 
-We have our integer in ``v0``, so let's see if they got it correct. Our
+We have our integer in ``v0``, so let's see if they were correct. Our
 generated number is stored in ``n``, so we have to get that before we make
 our comparison. We'll call our final code called when user correctly guesses
 the number, ``done``.
@@ -89,12 +92,14 @@ inputs a number greater than the generated number ``n``.
 
 And of course, we need the final condition for if the user's number is too
 small. We've already tested for too great, and equal, so if this part of the
-instructions is hit, then we don't have to do a comparison to know the input
+instructions is reached, then we don't have to do a comparison to know 
+the input
 is too small, so we can use a simple jump.
 
 	j toosmall
 
-Now, let's write those referenced sections of code. Let's write the ``toobig``
+Let's write those referenced sections of code. Let's write the 
+``toobig``
 section. It just needs to print out the number was too big, and then go back
 to the beginning of the loop.
 
@@ -104,7 +109,7 @@ to the beginning of the loop.
 	    syscall
 	    j loop
 
-Same thing again, but for number being too small.
+Same thing again, but for the number ``n`` being too small.
 
     toosmall:
 	    la $a0, toosmallstr
@@ -112,7 +117,7 @@ Same thing again, but for number being too small.
 	    syscall
 	    j loop
 
-And then, our ``done`` section is just printing out a string, and exiting.
+And then, our ``done`` section is just printing out a string and exiting.
 Simple.
 
     done:
