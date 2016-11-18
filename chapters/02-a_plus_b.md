@@ -1,3 +1,4 @@
+<!-- Part 2 -->
 #Part 2: A+B
 
 This will be a simple enough program. Get two integers, then print their sum.
@@ -29,11 +30,11 @@ specifically, 5, and the result is returned in ``$v0``.
 	li $v0, 5    #read integer service. Integer returned in $v0
 	syscall
 
-Let's go ahead and store the result into memory. Generally speaking, while
-MARS MIPS implementation this isn't as necessary, registers can be a generally
-risky spot to store data long-term, as function calls don't necessarily make a
-guarantee to preserve them between calls, so for demonstration purposes, we 
-store it at the spot in memory we allocated, at ``a``. We'll be using the
+Let's go ahead and store the result into memory. Generally speaking, storing
+data into registers is risky. This is because external function calls and
+system services do not make the guarantee that registers will be preserved
+after its call. In MARS MIPS, this isn't necessary. So, for demonstration
+purposes, we'll just store it in the register. We'll be using the
 instruction ``sw`` that stores the ``word`` in the first argument, which is a
 register, into the second argument, a place in memory.
 
@@ -66,13 +67,13 @@ into the first. For ``add x y z``, ``x`` will store the results of ``y + z``.
 And now that we have our math, we'll be using the print integer service, which
 is syscall \#1. It prints the current integer stored at ``$a0`` which we
 cleverly already stored the results in from the last operation. This is is
-where I find assembly programming to most enjoyable, slight little improvements
-in your code like that.
+where I find assembly programming to be most enjoyable, slight little
+improvements in your code like that.
 
 	li $v0, 1 
 	syscall
 
-And then, for the farewell, the good old system call saying we've had no
+And then, for the farewell, the good old ``syscall`` saying we've had no
 issues and time to exit.
 
 	li $v0, 10
@@ -119,6 +120,6 @@ issues and time to exit.
 
 ##Wrap-up
 
-Often times we need to get used to moving data around by storing them in
+Often-times we need to get used to moving data around by storing them in
 memory with instructions like ``sw`` and math instructions will store
 a register with the sum of two registers.

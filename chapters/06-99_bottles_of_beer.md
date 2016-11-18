@@ -1,3 +1,5 @@
+<!-- Part 6 -->
+
 #Part 6: 99 Bottles of Beer
 
 We will write a program that counts down, generating the lyrics for the song,
@@ -174,6 +176,5 @@ exit.
 
 ##Wrap-up
 
-Not much to say in the wrap-up this time, honestly. Just, remember to
-experiment a bit with different instructions to get comfortable with
-these programs as they increase in complexity.
+Not much to say in the wrap-up this time. Remember to experiment with
+different instructions to get comfortable with MIPS.

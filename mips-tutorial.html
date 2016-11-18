@@ -8,6 +8,7 @@
 <li><a href="#a-few-notes-before-you-start">A few notes before you start</a></li>
 <li><a href="#set-up-and-usage">Set-up and usage</a></li>
 <li><a href="#resources">Resources</a></li>
+<li><a href="#contributing">Contributing</a></li>
 </ul>
 </li>
 <li><a href="#part-1-hello-world">Part 1: Hello, World!</a><ul>
@@ -41,15 +42,23 @@
 <li><a href="#wrap-up_4">Wrap-up</a></li>
 </ul>
 </li>
-<li><a href="#part-6-99-bootles-of-beer">Part 6: 99 Bootles of Beer</a><ul>
+<li><a href="#part-6-99-bottles-of-beer">Part 6: 99 Bottles of Beer</a><ul>
 <li><a href="#walking-through-it_4">Walking through it</a></li>
 <li><a href="#source_5">Source</a></li>
 <li><a href="#wrap-up_5">Wrap-up</a></li>
 </ul>
 </li>
+<li><a href="#part-7-guess-the-number">Part 7: Guess the Number</a><ul>
+<li><a href="#walking-through-it_5">Walking through it</a></li>
+<li><a href="#source_6">Source</a></li>
+<li><a href="#wrap-up_6">Wrap-up</a></li>
+</ul>
+</li>
 <li><a href="#licensingrightscontact">Licensing/Rights/Contact</a></li>
 </ul>
 </div>
+<!-- Changelog -->
+
 <p><strong>Changelog</strong></p>
 <table>
 <thead>
@@ -60,8 +69,16 @@
 </thead>
 <tbody>
 <tr>
+<td>2016-11-17</td>
+<td>Part 7 added</td>
+</tr>
+<tr>
+<td>2016-11-16</td>
+<td>Various revisions and edits (1 by Dylan Holland) (1 by GitHub user stayliv3)</td>
+</tr>
+<tr>
 <td>2016-11-13</td>
-<td>Added resources section ; MIPS setup instructions added to Introduction ; Link to MIPS instruction set added in Part 3 wrap-up ; minor edits&amp;revision</td>
+<td>Part 6 added ; Added resources section ; MIPS setup instructions added to Introduction ; Link to MIPS instruction set added in Part 3 wrap-up ; minor edits&amp;revision</td>
 </tr>
 <tr>
 <td>2016-11-12</td>
@@ -69,12 +86,17 @@
 </tr>
 </tbody>
 </table>
+<!-- Introduction -->
+
 <h1 id="introduction">INTRODUCTION</h1>
 <p>MIPS is a CPU architecture that has been used in various embedded systems
 including a few things like the Game Boy Advance. It is a simple enough 
 architecture learn and is a good stepping stone if one wants to learn assembly
 for other CPU architectures, such as those found in personal computers.</p>
-<p>This is a tutorial that aims to give a thorough walkthrough of usage.</p>
+<p>This is a tutorial that aims to give a thorough walkthrough of usage and the
+general thought process behind writing assembly.</p>
+<p>The Markdown files used to write this tutorial, and the makefile are available
+on GitHub, see the section Contributing.</p>
 <h2 id="why-learn-assembly">Why learn assembly?</h2>
 <p>Learning assembly is a must if one hopes to get a solid understanding of how
 higher-level programming languages like C, or even Java or Python eventually
@@ -91,7 +113,7 @@ than MIPS, but not too much. This is a good starting ground.</p>
 low-level for other reasons, MIPS is a good place to get your feet wet. But,
 if this applies to you, I doubt you needed an explanation.</p>
 <h2 id="is-it-difficult">Is it difficult?</h2>
-<p>In a fundamental sense, one can learn <em>"theoretically"</em> learn assembly easier
+<p>In a fundamental sense, one can <em>"theoretically"</em> learn assembly easier
 than other programming languages, such as Python or C++. This is because it
 is the most basic level of direction. But, here in the real world, assembly is
 actually much more difficult to write software in, even trivial applications
@@ -164,10 +186,17 @@ these. </p>
 </ul>
 <p>This is the same link in the previous section, but placed here also for
 consistency.</p>
+<h2 id="contributing">Contributing</h2>
+<p>This tutorial was written in GitHub, and uses a Python markdown module, and
+uses a makefile to build it, you can see it and contribute 
+<a href="https://github.com/keithstellyes/mips-tutorial">here</a>.</p>
+<!-- Part 1 -->
+
 <h1 id="part-1-hello-world">Part 1: Hello, World!</h1>
 <h2 id="taking-the-plunge">Taking the plunge</h2>
 <p>Let's get our very first Hello, World! program!</p>
-<p>Just this once, I'll throw the raw source code for you to appreciate.</p>
+<p>This is the only time we'll do it like this, but we'll just look at the
+completed source code <em>then</em> examine it.</p>
 <pre><code>.data
 
 hello:  .asciiz "Hello, World!\n"
@@ -192,7 +221,7 @@ place in memory for a null-terminated string, <code>"Hello, World!\n"</code> the
 the newline character. The <code>hello:</code> is a label for this place in memory.</p>
 <pre><code>hello:  .asciiz "Hello, World!\n"
 </code></pre>
-<p>Let's mark the section where we'll start making legitimate instructions.</p>
+<p>Let's mark the section where we'll have actual legitimate instructions.</p>
 <pre><code>.text
 </code></pre>
 <p>Let's store our string into a register, we need to load the address of our
@@ -218,7 +247,7 @@ in our code, usually a literal like below. Effectively, we are doing
 <p>Now that we've actually set the instruction, we need to actually use the
 <code>syscall</code> instruction to use a system service. It'll check the arguments in
 the various registers that the specific service, and execute accordingly. This
-service we're using only takes an argument at <code>$v0</code> which shall contain the
+service we're using only takes an argument at <code>$a0</code> which shall contain the
 address of our string.</p>
 <pre><code>syscall
 </code></pre>
@@ -250,11 +279,13 @@ hello:  .asciiz "Hello, World!\n"
 <h2 id="wrap-up">Wrap-up</h2>
 <p><code>li</code> means "Load immediate" and <code>la</code> means "Load address". <code>li</code> is for
 when we have a specific number, a literal as it is called in other languages,
-to put into the spot in memory. Whereas <code>la</code> will load into it an address.</p>
+to put into the spot in memory. Whereas <code>la</code> will load an address into it.</p>
 <p>A typical program will declare a few spots in memory for variables pre-hand in
 the <code>.data</code> section, and the actual instructions proper in <code>.text</code>.</p>
 <p>Most I/O will be done with syscalls that take their arguments in specific
 registers like <code>$a0</code>.</p>
+<!-- Part 2 -->
+
 <h1 id="part-2-ab">Part 2: A+B</h1>
 <p>This will be a simple enough program. Get two integers, then print their sum.</p>
 <h2 id="walking-through-it">Walking through it.</h2>
@@ -281,11 +312,11 @@ specifically, 5, and the result is returned in <code>$v0</code>.</p>
 <pre><code>li $v0, 5    #read integer service. Integer returned in $v0
 syscall
 </code></pre>
-<p>Let's go ahead and store the result into memory. Generally speaking, while
-MARS MIPS implementation this isn't as necessary, registers can be a generally
-risky spot to store data long-term, as function calls don't necessarily make a
-guarantee to preserve them between calls, so for demonstration purposes, we 
-store it at the spot in memory we allocated, at <code>a</code>. We'll be using the
+<p>Let's go ahead and store the result into memory. Generally speaking, storing
+data into registers is risky. This is because external function calls and
+system services do not make the guarantee that registers will be preserved
+after its call. In MARS MIPS, this isn't necessary. So, for demonstration
+purposes, we'll just store it in the register. We'll be using the
 instruction <code>sw</code> that stores the <code>word</code> in the first argument, which is a
 register, into the second argument, a place in memory.</p>
 <pre><code>sw $v0, a
@@ -293,6 +324,7 @@ register, into the second argument, a place in memory.</p>
 <p>Let's do the same process, but for <code>b</code>...</p>
 <pre><code>la $a0, giveb
 li $v0, 4
+syscall
 
 li $v0, 5
 syscall
@@ -313,12 +345,12 @@ into the first. For <code>add x y z</code>, <code>x</code> will store the result
 <p>And now that we have our math, we'll be using the print integer service, which
 is syscall #1. It prints the current integer stored at <code>$a0</code> which we
 cleverly already stored the results in from the last operation. This is is
-where I find assembly programming to most enjoyable, slight little improvements
-in your code like that.</p>
+where I find assembly programming to be most enjoyable, slight little
+improvements in your code like that.</p>
 <pre><code>li $v0, 1 
 syscall
 </code></pre>
-<p>And then, for the farewell, the good old system call saying we've had no
+<p>And then, for the farewell, the good old <code>syscall</code> saying we've had no
 issues and time to exit.</p>
 <pre><code>li $v0, 10
 syscall
@@ -343,6 +375,7 @@ syscall
     # Read integer b
     la $a0, giveb
     li $v0, 4
+    syscall
 
     li $v0, 5   #read integer service.
     syscall
@@ -361,9 +394,11 @@ syscall
     syscall
 </code></pre>
 <h2 id="wrap-up_1">Wrap-up</h2>
-<p>Often times we need to get used to moving data around by storing them in
+<p>Often-times we need to get used to moving data around by storing them in
 memory with instructions like <code>sw</code> and math instructions will store
 a register with the sum of two registers.</p>
+<!-- Part 3 -->
+
 <h1 id="part-3-echo">Part 3: Echo</h1>
 <p>Get input from user, then repeat it.
 This program will demonstrate allocation of memory and storing strings.</p>
@@ -438,6 +473,8 @@ syscall
 <p>To allocate a large amount of data, we have to allocate it by using a system
 service, and then it will give us the location of where it allocated the
 memory where we will then print it.</p>
+<!-- Part 4 -->
+
 <h1 id="part-4-a-b">Part 4: A == B</h1>
 <p>Get two integers from the user, state if they're equal or not.</p>
 <h2 id="walking-through-it_2">Walking through it</h2>
@@ -562,6 +599,8 @@ to code blocks you don't want executing. Be careful.</p>
 <p>A list of MIPS instructions, including all the different branching
 instructions can be found 
 <a href="http://www.mrc.uidaho.edu/mrc/people/jff/digital/MIPSir.html">here.</a></p>
+<!-- Part 5 -->
+
 <h1 id="part-5-loop-n-times">Part 5: Loop N Times</h1>
 <p>This time, we will write a simple program, that when given an integer, it will
 print that many times, each time doing a "countdown". We can easily combine
@@ -686,7 +725,9 @@ alldone:
 <p>Using a branch and an unconditional jump at both the beginning and end of a
 segment of code, we can implement looping structures as we see in normal
 programming languages.</p>
-<h1 id="part-6-99-bootles-of-beer">Part 6: 99 Bootles of Beer</h1>
+<!-- Part 6 -->
+
+<h1 id="part-6-99-bottles-of-beer">Part 6: 99 Bottles of Beer</h1>
 <p>We will write a program that counts down, generating the lyrics for the song,
 <em>99 Bottles of Beer on the Wall</em> (lyrics 
 <a href="http://www.99-bottles-of-beer.net/lyrics.html">here</a>)
@@ -845,9 +886,185 @@ concl:
     syscall
 </code></pre>
 <h2 id="wrap-up_5">Wrap-up</h2>
-<p>Not much to say in the wrap-up this time, honestly. Just, remember to
-experiment a bit with different instructions to get comfortable with
-these programs as they increase in complexity.</p>
+<p>Not much to say in the wrap-up this time. Remember to experiment with
+different instructions to get comfortable with MIPS.</p>
+<!-- Part 7 -->
+
+<h1 id="part-7-guess-the-number">Part 7: Guess the Number</h1>
+<p>We will write a program that will randomly generate a number <code>n</code> and then
+repeatedly ask for integer input until the input is equal to <code>n</code>. The program
+will also state if <code>n</code> is greater than or less than the integer input.</p>
+<h2 id="walking-through-it_5">Walking through it</h2>
+<p>This time, we will not store our number in a register, but instead in a normal
+place in memory, as is ideal. All random generators have an "id", don't forget.
+First, let's declare our initial data...</p>
+<pre><code>.data
+    toosmallstr:  .asciiz "n is greater than input.\n"
+    toobigstr:    .asciiz "n is lesser than input.\n"
+    correctstr:   .asciiz "n is equal to input.\n"
+    makeguessstr:.asciiz "Make a guess:"
+    n:         .word   0
+    randgenid: .word   1
+</code></pre>
+<p>We will be using a <code>syscall</code> that will generate a pseudorandom number. If we
+go back to the<code>syscall</code> chart
+<a href="http://courses.missouristate.edu/KenVollmar/mars/Help/SyscallHelp.html">here</a>
+we see that we have <code>syscall 42</code>. This generates a random number
+0 &lt;= n &lt; \upperbound
+It requires us to set a <em>seed</em>. Typically, a pseudorandom number generator will
+use the system time for this. For this, we have <code>syscall 30</code>. So first, let's
+get the time to use for our seed.</p>
+<pre><code>.text
+    li $v0, 30
+    syscall
+</code></pre>
+<p>We have the time, now if you look at the table, you'll see we have both
+low-order time in <code>$a0</code> and high-order in <code>$a1</code>. For our purposes, we will
+use high-order time for our purposes. Before we can use our random number
+generator, we must first set the seed. The number we are going to use as our
+seed is in <code>$a1</code> <code>syscall 40</code> is there to set the seed of our random number
+generator, so let's move our desired seed in <code>$a0</code> into <code>$a1</code> and then make
+the <code>syscall 40</code> to set the low-order time as our seed. Also, we need to make
+sure we are using the correct random generator id, so let's set that too.</p>
+<pre><code>move $a1, $a0
+lw $a0, randgenid
+li $v0,40
+syscall
+</code></pre>
+<p>Now that our random number generator is ready, we can actually use the
+generator. It sets its upper bound in <code>$a1</code>, now if you remember, it will
+generate a number in the range of 0 - (<code>$a1</code> - 1) so we can set the upper
+bound to 10, and then increment to get a number in the range of 1-10.</p>
+<pre><code>li $a1,10
+li $v0,42
+syscall
+</code></pre>
+<p>We now have our random number generated, but it is 1 less than it should be.
+Also, it still needs to be stored in <code>n</code>. So let's add 1 to it, then store
+it.</p>
+<pre><code>add $a0, $a0, 1
+sw $a0, n
+</code></pre>
+<p>Our number is stored and ready, so now we can start our loop. First, we will
+need to get a value. We'll do this every iteration of the loop, so let's have
+the label, too.</p>
+<pre><code>loop:
+    la $a0, makeguessstr
+    li $v0, 4
+    syscall
+    li $v0, 5
+    syscall
+</code></pre>
+<p>We have our integer in <code>v0</code>, so let's see if they got it correct. Our
+generated number is stored in <code>n</code>, so we have to get that before we make
+our comparison. We'll call our final code called when user correctly guesses
+the number, <code>done</code>.</p>
+<pre><code>lw $a0, n
+beq $a0, $v0, done
+</code></pre>
+<p>We have our branch for a correct guess, let's do the branch for if the user
+inputs a number greater than the generated number <code>n</code>.</p>
+<pre><code>blt $a0, $v0, toobig
+</code></pre>
+<p>And of course, we need the final condition for if the user's number is too
+small. We've already tested for too great, and equal, so if this part of the
+instructions is hit, then we don't have to do a comparison to know the input
+is too small, so we can use a simple jump.</p>
+<pre><code>j toosmall
+</code></pre>
+<p>Now, let's write those referenced sections of code. Let's write the <code>toobig</code>
+section. It just needs to print out the number was too big, and then go back
+to the beginning of the loop.</p>
+<pre><code>toobig:
+    la $a0, toobigstr
+    li $v0, 4
+    syscall
+    j loop
+</code></pre>
+<p>Same thing again, but for number being too small.</p>
+<pre><code>toosmall:
+    la $a0, toosmallstr
+    li $v0, 4
+    syscall
+    j loop
+</code></pre>
+<p>And then, our <code>done</code> section is just printing out a string, and exiting.
+Simple.</p>
+<pre><code>done:
+    la $a0, correctstr
+    li $v0, 4
+    syscall
+    li $v0, 10
+    syscall
+</code></pre>
+<h2 id="source_6">Source</h2>
+<pre><code>.data
+    toosmallstr: .asciiz "n is greater than input.\n"
+    toobigstr:   .asciiz "n is lesser than input.\n"
+    correctstr:  .asciiz "n is equal to input.\n"
+    makeguessstr:.asciiz "Make a guess:"
+    n:        .word 0
+    randgenid:.word 1
+
+.text
+    #get system time
+    li $v0, 30
+    syscall
+
+    #use system time for seed
+    move $a1, $a0
+    lw   $a0, randgenid
+    li $v0,40
+    syscall
+
+    li $a1,10
+    li $v0,42
+    syscall
+    #our number is 1 less than it should be. Adjust.
+    add $a0, $a0, 1
+    sw $a0, n
+
+loop:
+    #print the make guess string and get integer.
+    la $a0, makeguessstr
+    li $v0, 4
+    syscall
+    li $v0, 5
+    syscall
+
+    #store our integer.
+    lw $a0, n
+    #n == input?
+    beq $a0, $v0, done
+    #n &lt; input?
+    blt $a0, $v0, toobig
+    #n &gt; input.
+    j toosmall
+
+toobig:
+    la $a0, toobigstr
+    li $v0, 4
+    syscall
+    j loop
+
+toosmall:
+    la $a0, toosmallstr
+    li $v0, 4
+    syscall
+    j loop
+
+done:
+    la $a0, correctstr
+    li $v0, 4
+    syscall
+    li $v0, 10
+    syscall
+</code></pre>
+<h2 id="wrap-up_6">Wrap-up</h2>
+<p>Making extensive use of sub-procedures as used here can be quite useful as
+your code increases in complexity.</p>
+<!-- footer -->
+
 <h1 id="licensingrightscontact">Licensing/Rights/Contact</h1>
 <p>For questions, comments, corrections, inquiries, etc. I may be reached at
 contact@keithstellyes.com</p>

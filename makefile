@@ -5,10 +5,11 @@ pypath    := "python3"
 exttoc    := "markdown.extensions.toc"
 extinc    := "markdown_include.include"
 exttab    := "markdown.extensions.tables"
+extcmt    := "mkdcomments"
 VAR       :=
 
-IMPORTSTR := "import markdown, markdown.extensions.toc, markdown_include.include"
-PYMODULES := "markdown, markdown.extensions.toc, markdown_include.include, markdown.extensions.tables"
+IMPORTSTR := "import markdown, markdown.extensions.toc, markdown_include.include, mkdcomments"
+PYMODULES := "markdown, markdown.extensions.toc, markdown_include.include, markdown.extensions.tables, mkdcomments"
 
 PY2S := "Succeeded with python2. Using python2 binary."
 PY2F := "Failed with python2... testing python3"
@@ -46,5 +47,5 @@ checkdep:
 
 compile:
 	@echo && echo --Compiling Markdown to HTML--
-	$(pypath) -m markdown $(main_src) -x $(extinc) -x $(exttoc) > $(main_tgt) -x $(exttab)
+	$(pypath) -m markdown $(main_src) -x $(extcmt) -x $(extinc) -x $(exttoc) > $(main_tgt) -x $(exttab)
 	@echo && echo Wrote to: $(main_tgt)
