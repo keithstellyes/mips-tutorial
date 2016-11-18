@@ -12,7 +12,9 @@ in the next few days.
 
 *Python (2.x or 3.x)
 
-*make (If you're on Linux or Mac or BSD you should be fine, if you're on Windows, install make using Cygwin.
+*``make`` (If you're on Linux or Mac or BSD you should be fine, if 
+you're 
+on Windows, install ``make`` using Cygwin.
 
 *[markdown module](https://pypi.python.org/pypi/Markdown)
 
