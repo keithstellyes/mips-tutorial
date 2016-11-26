@@ -13,11 +13,11 @@ It may be a bit behind.
 
 * ``make`` (If you're on Linux or Mac or BSD you should be fine, if 
 you're 
-on Windows, install ``make`` using Cygwin.
+on Windows, if you do not have ``make``: install ``make`` using Cygwin.
 
 * [markdown module](https://pypi.python.org/pypi/Markdown)
 
-Various third party markdown modules like...
+Various third party markdown modules...
 
 * [mkdcomments](https://github.com/ryneeverett/python-markdown-comments)
 
