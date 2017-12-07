@@ -1,0 +1,3 @@
+markdown
+markdown-include
+git+https://github.com/ryneeverett/python-markdown-comments.git
