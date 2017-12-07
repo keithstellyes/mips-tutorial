@@ -18,6 +18,7 @@
 <div class="toc">
 <ul>
 <li><a href="#introduction">INTRODUCTION</a><ul>
+<li><a href="#who-is-this-for-and-who-is-it-not-for">Who is this for (and who is it not for?)</a></li>
 <li><a href="#why-learn-assembly">Why learn assembly?</a></li>
 <li><a href="#is-it-difficult">Is it difficult?</a></li>
 <li><a href="#why-mips-assembly-and-not-another-architecture">Why MIPS Assembly and not another architecture?</a></li>
@@ -92,6 +93,10 @@
 </thead>
 <tbody>
 <tr>
+<td>2017-12-06</td>
+<td>Various revisions made in intro ; Who is this for? section</td>
+</tr>
+<tr>
 <td>2016-11-21</td>
 <td>Part 8 added</td>
 </tr>
@@ -121,35 +126,40 @@
 
 <h1 id="introduction">INTRODUCTION</h1>
 <p>MIPS is a CPU architecture that has been used in various embedded systems
-including a few things like the Game Boy Advance. It is a simple enough 
+from the Game Boy Advance to the Sony PlayStation. It is a simple enough 
 architecture learn and is a good stepping stone if one wants to learn assembly
 for other CPU architectures, such as those found in personal computers.</p>
 <p>This is a tutorial that aims to give a thorough walkthrough of usage and the
 general thought process behind writing assembly.</p>
 <p>The Markdown files used to write this tutorial, and the makefile are available
 on GitHub, see the section Contributing.</p>
+<h2 id="who-is-this-for-and-who-is-it-not-for">Who is this for (and who is it not for?)</h2>
+<p>This tutorial was written as assembly can be quite intimidating however
+enriching learning it can be. Sometimes it helps to learn by examples where
+one is kind of walked through it and the thought process is explained step-by-step.
+If you already are comfortable with other assembly architectures, then this
+may not be so useful.</p>
 <h2 id="why-learn-assembly">Why learn assembly?</h2>
 <p>Learning assembly is a must if one hopes to get a solid understanding of how
 higher-level programming languages like C, or even Java or Python eventually
 translate (<em>compile</em>) to actual instructions. In many ways however, knowing
 this will help you better implement algorithms as you get used to thinking at
 a more basic level.</p>
-<p>Also, if you ever intend to use debugging software like gdb, or want to
+<p>Also, if you ever intend to use debugging software like <code>gdb</code>, or want to
 reverse-engineer software, with things like Cheat Engine to hack videogames
 (Just do it in single-player please ;) ) assembly is a must-know. Of course,
-don't take me too literally here, as with things like Cheat Engine or gdb,
+don't take me too literally here, as with things like Cheat Engine or <code>gdb</code>,
 you'll be using a different architecture that will be a bit more complicated
 than MIPS, but not too much. This is a good starting ground.</p>
 <p>If you also wanna write a compiler, or otherwise wanna work
 low-level for other reasons, MIPS is a good place to get your feet wet. But,
 if this applies to you, I doubt you needed an explanation.</p>
 <h2 id="is-it-difficult">Is it difficult?</h2>
-<p>In a fundamental sense, one can <em>"theoretically"</em> learn assembly easier
+<p>In a fundamental sense, one can <em>theoretically</em> learn assembly easier
 than other programming languages, such as Python or C++. This is because it
 is the most basic level of direction. But, here in the real world, assembly is
 actually much more difficult to write software in, even trivial applications
-can easily become a headache in assembly to the inexperienced and experienced
-alike.</p>
+can easily become a headache in assembly.</p>
 <p>There's no OOP to learn, inheritance, lambdas, or anything like that. There is
 a simplicity you may learn to appreciate. Of course, you'll also gain an
 appreciation of many higher-level language features ;) I promise it's fun,
@@ -159,7 +169,8 @@ though.</p>
 <li>
 <p>MIPS is a <em>RISC</em> architecture (Reduced Instruction Set), so learning the
 basics is much simpler, and can focus on the actual programming. It is simpler
-to learn than the arch used in standard personal computers: x86-64.</p>
+to learn than the architecture used in standard personal computers: x86-64 or even
+ARM commonly used in smart phones.</p>
 </li>
 <li>
 <p>Implementations of MIPS simulators (In particular, MARS) I've found to be
@@ -176,9 +187,9 @@ of smart people.)</p>
 you're golden. </p>
 <h2 id="a-few-notes-before-you-start">A few notes before you start</h2>
 <p>You will hear both <em>registers</em> and <em>memory</em> talked about. A register is a
-memory unit that is directly "on" the CPU as opposed to RAM that we can perform
-actions directly with. For your memory that isn't in one of your few registers,
-you must load it from memory before you can do things like math, I/O, etc. If
+memory unit that is inside the CPU as opposed to <em>memory</em> that we can perform
+actions directly with. For data that isn't in one of your few registers,
+you must load it from memory into a registerbefore you can do things like math with it. If
 this doesn't quite make sense, it should make sense as you go through this
 tutorial and have a bit more context.</p>
 <h2 id="set-up-and-usage">Set-up and usage</h2>
@@ -197,10 +208,6 @@ for actually running your code.</p>
 </ul>
 <p>This will run your assembled code, note you <em>must</em> assemble it first.</p>
 <h2 id="resources">Resources</h2>
-<p>This tutorial is not meant to supersede/replace some of the already great
-resources out there, but to instead complement what already exists. For this
-reason, I opted to not include copies of the instruction sets or the definitive
-<code>syscall</code> list, look to some of these resources for information.</p>
 <ul>
 <li><a href="http://www.mrc.uidaho.edu/mrc/people/jff/digital/MIPSir.html">The instruction set (James F. Frenzel @ University of Idaho)</a></li>
 </ul>
@@ -211,7 +218,7 @@ instructions available, math, etc.</p>
 <li><a href="http://courses.missouristate.edu/KenVollmar/mars/Help/SyscallHelp.html">syscall list (Ken Vollmar @ Missouri State)</a></li>
 </ul>
 <p>There are many different system services, MARS supports most, if not all of
-these. </p>
+these. With these things we cna do thing like read from user input and write to the screen. </p>
 <ul>
 <li><a href="http://courses.missouristate.edu/KenVollmar/mars/download.htm">MARS Download (Ken Vollmar @ Missouri State)</a></li>
 </ul>

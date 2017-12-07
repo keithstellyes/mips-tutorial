@@ -3,6 +3,7 @@
 
 | Date (PST) |   Description                                                                                        |
 |------------|------------------------------------------------------------------------------------------------------|
+|2017-12-06  | Various revisions made in intro ; Who is this for? section |
 |2016-11-21  | Part 8 added |
 |2016-11-18  | Various edits and revisions                                   |
 |2016-11-17  | Part 7 added ; minor edit (by GitHub user stayliv3)                                                                                        |
